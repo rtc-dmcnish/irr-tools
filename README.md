@@ -9,6 +9,6 @@ A set of simple scripts to automate querying IRR data.
 
 *Third party tools*
 
-- (https://rpki.level66.services/ui/)[Routinator RPKI Validator]
-- (https://irrexplorer.nlnog.net)[IRR Explorer]
-- (https://rpki.cloudflare.com)[Cloudflare RPKI Validator]
+- [Routinator RPKI Validator](https://rpki.level66.services/ui/)
+- [IRR Explorer](https://irrexplorer.nlnog.net)
+- [Cloudflare RPKI Validator](https://rpki.cloudflare.com)
