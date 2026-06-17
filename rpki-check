@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+PREFIX=""
+ASN=""
+
+function show_help {
+    echo "Check RPKI validity for a given prefix/asn pair."
+    echo "Example:"
+    echo "     $(basename $0) -a asn -p prefix"
+    exit 1
+}
+
+# A leading colon ':' puts getopts in silent error-reporting mode
+while getopts ":a:p:h" opt; do
+  case ${opt} in
+    h )
+      show_help
+      ;;
+    a )
+      ASN=$OPTARG
+      ;;
+    p )
+      PREFIX=$OPTARG  # $OPTARG holds the value provided to the option
+      ;;
+    \? )
+      echo "Invalid option: -$OPTARG" 1>&2
+      show_help
+      ;;
+    * )
+     show_help
+     ;;
+  esac
+done
+
+if [[ $ASN == "" || $PREFIX == "" ]];then
+    show_help
+fi
+
+curl -s --location --request GET "https://stat.ripe.net/data/rpki-validation/data.json?resource=${ASN}&prefix=${PREFIX}" | \
+jq -r '"Prefix: \(.data.prefix) via \(.data.resource) RPKI status: \(.data.status)"'
